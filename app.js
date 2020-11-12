@@ -238,12 +238,12 @@ async function getTradeQuote(user_email){
 
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
     let bigdecimal = require("bigdecimal");
-
+let amount = new bigdecimal.BigDecimal('2');
     let request_body = {
         cryptoCurrency : 'BTC',
         baseCurrency : 'NGN',
         requestedCurrency : 'NGN',
-        requestedAmount : new bigdecimal.BigDecimal('2'),
+        requestedAmount : amount,
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
