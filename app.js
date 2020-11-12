@@ -275,6 +275,25 @@ async function getTradeQuote(user_email){
             console.log(response_data);
 
 
+
+
+
+
+            // if user not exist:
+            /*
+             data: {
+    respCode: 'NOT_FIND_BIND_USER',
+    respMsg: 'could not find bound user',
+    quoteId: null,
+    quotePrice: null,
+    totalAmount: null,
+    quotationTime: null,
+    quotationExpiredTime: null
+  }
+             */
+
+
+
         })
         .catch(function (error) {
             console.log("ERROR BURN", error);
@@ -293,7 +312,7 @@ async function getTradeQuote(user_email){
             //   getAccountOpenOrders();
 
                // create member account on Binance:
-               let user_email = 'testuserd@xend.finance';
+               let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
                  getTradeQuote(user_email);
