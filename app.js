@@ -239,11 +239,13 @@ async function getTradeQuote(user_email){
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
     let bigdecimal = require("bigdecimal");
 let amount = new bigdecimal.BigDecimal('2');
+
+
     let request_body = {
         cryptoCurrency : 'BTC',
         baseCurrency : 'NGN',
         requestedCurrency : 'NGN',
-        requestedAmount : amount,
+        requestedAmount : '2.002',
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
@@ -333,7 +335,11 @@ let amount = new bigdecimal.BigDecimal('2');
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
                  getTradeQuote(user_email);
+          // let bigdecimal = require("bigdecimal");
 
+
+         //  let amount = new bigdecimal.BigDecimal('2.788');
+          // console.log(amount.toString());
 
                     res.send('Hello World!')
 });
