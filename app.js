@@ -237,15 +237,10 @@ async function getTradeQuote(user_email){
     let url = base_url + endpoint;
 
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
-    let bigdecimal = require("bigdecimal");
-
-
-
-    let amount = new bigdecimal.BigDecimal('2');
 
     let request_body = {
         cryptoCurrency : 'BTC',
-      //  baseCurrency : 'NGN',
+        //  baseCurrency : 'NGN',
         baseCurrency : 'RUB',
         requestedCurrency : 'RUB',
         requestedAmount : parseFloat('2.002'),
@@ -277,10 +272,21 @@ async function getTradeQuote(user_email){
     )
         .then(function (response_data) {
 
-
             console.log(response_data);
 
+            // success
 
+            /*
+             data: {
+    respCode: 'SUCCESS',
+    respMsg: null,
+    quoteId: '73da1138babb49c987165fffd02731dc',
+    quotePrice: 1001000,
+    totalAmount: 0.000002,
+    quotationTime: 1605199027157,
+    quotationExpiredTime: 1605199087150
+  }
+             */
 
 
 
@@ -326,8 +332,66 @@ async function getTradeQuote(user_email){
 
 
 
+async function buyCrypto(user_email){
 
-       app.get('/', (req, res) => {
+    let endpoint = '/gateway-api/v1/public/ocbs/trade/getQuote';
+    let url = base_url + endpoint;
+
+    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
+
+    let request_body = {
+        binanceUserId : '350867884',
+        merchantUserAccount : user_email,
+        quoteId : '73da1138babb49c987165fffd02731dc',
+        orderId : '73da1138babb4',
+        note : 'just talking',
+    };
+
+
+    let payload = encodeDataToURL(request_body)+'&';
+    let signature_text = payload + api_signature_default_string;
+
+    let requestSignature = SHA256(signature_text);
+
+
+    let request_headers = {
+        'Content-Type': 'application/json',
+        'merchantCode': process.env.merchantCode,
+        'x-api-key': process.env.APIKEY,
+        'x-api-signature': requestSignature,
+        'timestamp': Date.now(),
+    };
+
+
+    axios.post(url, request_body, {
+            headers: request_headers
+        }
+    )
+        .then(function (response_data) {
+
+
+            console.log(response_data);
+
+
+        })
+        .catch(function (error) {
+            console.log("ERROR BURN", error);
+        });
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+app.get('/', (req, res) => {
 
 
            // retrieve api user open orders: comment out when not in use..
@@ -337,13 +401,9 @@ async function getTradeQuote(user_email){
                let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
-                 getTradeQuote(user_email);
-          // let bigdecimal = require("bigdecimal");
+                 // getTradeQuote(user_email);
+                 buyCrypto(user_email);
 
-
-         //  let amount = new bigdecimal.BigDecimal('2.788');
-          // console.log(amount.toString());
-       console.log(parseFloat('2'));
 
 
                     res.send('Hello World!')
