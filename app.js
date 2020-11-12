@@ -346,7 +346,8 @@ console.log('buy  time', Date.now());
     let request_body = {
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
-        quoteId : quoteId,
+       // quoteId : quoteId,
+        quoteId : '',
         orderId : '73da1138babb4',
         note : 'just talking',
     };
