@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Connect Binance Access </title>
+    <script type="text/javascript" src="bower_components/crypto-js/crypto-js.js"></script>
+
+    <script>
+   var base_url = 'https://api.binance.com';
+   var endpoint = '/api/v3/account';
+   var queryString = 'recWindow=20000&timestamp='+Date.now();
+
+   var api_keys = {
+      'key' : '',
+       'secret' : ''
+   };
+
+   /// encoding totalParameters(body and query) and secret key usd HMAC SHA256
+var buildSignature = CryptoJS.HmacSHA256(queryString, api_keys['secret']).toString(CryptoJS.enc.Hex);
+
+// making the api call..
+        var apiRequest = new XMLHttpRequest();
+        var url = base_url + endpoint + '?' + queryString + '&signature=' + buildSignature;
+
+        console.log("START REQUEST");
+
+        apiRequest.open('GET', url, true); // true to async
+        apiRequest.setRequestHeader('X-MBX-APIKEY', api_keys['key']);
+        apiRequest.onload = function () {
+            console.log("response loaded");
+        console.log(JSON.parse(apiRequest.responseText));
+        }
+
+
+    </script>
+
+
+
+
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
