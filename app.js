@@ -18,6 +18,10 @@ let api_keys = {
     'secret' : process.env.APISECRET
 };
 
+// we have crreated a user in demo: response.data things..
+// data: { respCode: 'SUCCESS', respMsg: '', userId: 350867884 }
+
+
 
 
  async function getAccountOpenOrders(){
@@ -90,6 +94,27 @@ let signature_text = payload + api_signature_default_string;
         }
     )
         .then(function (response_data) {
+
+            // user registered!!
+            // response_data.data =  { respCode: 'SUCCESS', respMsg: '', userId: 350867884 }
+
+
+            // user already exist error
+            // data: {
+            //     respCode: 'USER_HAS_BIND',
+            //     respMsg: 'user has bound',
+            //     userId: 350867884
+            //   }
+
+
+
+           // bind user: not valid redirect url yet..
+           // https://accounts.sdtaop.com?merchantCode=Xend&merchantUserAccount=testuser@xend.finance&redirect=https://xend.finance
+
+
+
+
+
             console.log(response_data);
         })
         .catch(function (error) {
@@ -124,6 +149,54 @@ let signature_text = payload + api_signature_default_string;
 
 
 
+async function getBindStatus(user_email){
+
+    let endpoint = '/gateway-api/v1/public/ocbs/user/register';
+    let url = base_url + endpoint;
+
+    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
+    let payload = 'merchantUserAccount='+user_email+'&';
+    let signature_text = payload + api_signature_default_string;
+
+    let requestSignature = SHA256(signature_text);
+
+    let request_body = {
+        merchantUserAccount : user_email,
+    };
+
+    let request_headers = {
+        'Content-Type': 'application/json',
+        'merchantCode': process.env.merchantCode,
+        'x-api-key': process.env.APIKEY,
+        'x-api-signature': requestSignature,
+        'timestamp': Date.now(),
+    };
+
+
+    axios.post(url, request_body, {
+            headers: request_headers
+        }
+    )
+        .then(function (response_data) {
+
+
+            console.log(response_data);
+        })
+        .catch(function (error) {
+            console.log("ERROR BURN", error);
+        });
+
+
+}
+
+
+
+
+
+
+
+
+
        app.get('/', (req, res) => {
 
 
@@ -132,7 +205,8 @@ let signature_text = payload + api_signature_default_string;
 
                // create member account on Binance:
                let user_email = 'testuser@xend.finance';
-                createMemberAccount(user_email);
+                 //  createMemberAccount(user_email); // to register user
+                 getBindStatus(user_email);
 
 
 
