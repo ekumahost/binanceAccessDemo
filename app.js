@@ -383,6 +383,21 @@ async function buyCrypto(user_email){
       data: null,
       success: false
     }
+
+
+
+
+     data: {
+    respCode: 'SYSTEM_ERROR',
+    respMsg: 'Failed to execute：quote expired',
+    quoteId: null,
+    orderId: null,
+    paymentId: null,
+    status: null,
+    note: null
+  }
+
+
              */
 
 
@@ -415,8 +430,8 @@ app.get('/', (req, res) => {
                let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
-                 // getTradeQuote(user_email);
-                 buyCrypto(user_email);
+                  getTradeQuote(user_email);
+               //  buyCrypto(user_email);
 
 
 
