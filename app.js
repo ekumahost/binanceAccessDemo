@@ -246,7 +246,7 @@ async function getTradeQuote(user_email){
         //  baseCurrency : 'NGN',
         baseCurrency : 'RUB',
         requestedCurrency : 'RUB',
-        requestedAmount : parseFloat('500'),
+        requestedAmount : parseFloat('1000'),
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
@@ -349,8 +349,8 @@ console.log('buy  time', now_now);
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
         quoteId : quoteId,
-        orderId : 'order_'+now_now,
-        note : 'just talking',
+        orderId : 'order_' + now_now
+       // note : 'just talking',
     };
 
 
@@ -422,10 +422,16 @@ console.log('buy  time', now_now);
 
 
 
-async function cleanQuote(user_email){
-     let quote_id = await getTradeQuote(user_email);
+async function initBuy(user_email){
+    // let quote_iddd = await getTradeQuote(user_email);
 
-             buyCrypto(user_email,quote_id);
+    getTradeQuote(user_email).then(function (quote_iddd) {
+
+        buyCrypto(user_email,quote_iddd);
+
+    });
+
+
 
 }
 
@@ -443,7 +449,7 @@ app.get('/', (req, res) => {
                 // getBindStatus(user_email); // see if user is bind to us
                  // getTradeQuote(user_email);
 
-              let quote_id =  cleanQuote(user_email);
+                  initBuy(user_email);
 
 
 /*
