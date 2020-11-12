@@ -11,6 +11,7 @@ const SHA256 = require("crypto-js/sha256");
 const port = 30044;
 app.use(cors());
 
+const now_now  = Date.now()+60;
 
    encodeDataToURL = (data) => {
     return Object
@@ -236,7 +237,8 @@ async function getTradeQuote(user_email){
     let endpoint = '/gateway-api/v1/public/ocbs/trade/getQuote';
     let url = base_url + endpoint;
 
-    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
+
+    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+now_now+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
 
     let request_body = {
         cryptoCurrency : 'BTC',
@@ -262,7 +264,7 @@ async function getTradeQuote(user_email){
         'merchantCode': process.env.merchantCode,
         'x-api-key': process.env.APIKEY,
         'x-api-signature': requestSignature,
-        'timestamp': Date.now(),
+        'timestamp': now_now,
     };
 
 
@@ -339,8 +341,8 @@ async function buyCrypto(user_email,quoteId){
     let endpoint = '/gateway-api/v1/public/ocbs/trade/execute';
     let url = base_url + endpoint;
 console.log('buy function qid', quoteId);
-console.log('buy  time', Date.now());
-    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
+console.log('buy  time', now_now);
+    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+now_now+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
 
     let request_body = {
         binanceUserId : '350867884',
@@ -363,7 +365,7 @@ console.log('buy  time', Date.now());
         'merchantCode': process.env.merchantCode,
         'x-api-key': process.env.APIKEY,
         'x-api-signature': requestSignature,
-        'timestamp': Date.now(),
+        'timestamp': now_now,
     };
 
 
@@ -439,10 +441,15 @@ app.get('/', (req, res) => {
                 // getBindStatus(user_email); // see if user is bind to us
                  // getTradeQuote(user_email);
 
-               let quote_id =  cleanQuote(user_email);
-                buyCrypto(user_email,quote_id);
+              let quote_id =  cleanQuote(user_email);
+               buyCrypto(user_email,quote_id);
 
-
+/*
+    var t = new Date(Date.now() + 10000);
+console.log(t);
+console.log(Date.now());
+console.log(Date.now()+60);
+*/
 
                     res.send('Hello World!')
 });
