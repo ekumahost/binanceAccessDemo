@@ -410,7 +410,7 @@ console.log('buy  time', now_now);
 
         })
         .catch(function (error) {
-            console.log("ERROR BURN", error);
+            console.log("BUY ERROR BURN", error);
         });
 
 
@@ -427,6 +427,7 @@ async function initBuy(user_email){
 
     getTradeQuote(user_email).then(function (quote_iddd) {
 
+        console.log('INIT BUY GOT', quote_iddd);
         buyCrypto(user_email,quote_iddd);
 
     });
