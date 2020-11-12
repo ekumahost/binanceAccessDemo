@@ -273,6 +273,9 @@ async function getTradeQuote(user_email){
         .then(function (response_data) {
 
             console.log(response_data.data.quoteId);
+            console.log("quotationTime", response_data.data.quotationTime);
+            console.log("quotationExpiredTime", response_data.data.quotationExpiredTime);
+
             return response_data.data.quoteId;
             // success
 
@@ -336,7 +339,8 @@ async function buyCrypto(user_email,quoteId){
 
     let endpoint = '/gateway-api/v1/public/ocbs/trade/execute';
     let url = base_url + endpoint;
-
+console.log('buy function qid', quoteId);
+console.log('buy  time', Date.now());
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
 
     let request_body = {
