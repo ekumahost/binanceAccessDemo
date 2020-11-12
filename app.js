@@ -11,6 +11,16 @@ const SHA256 = require("crypto-js/sha256");
 const port = 30044;
 app.use(cors());
 
+
+   encodeDataToURL = (data) => {
+    return Object
+        .keys(data)
+        .map(value => `${value}=${encodeURIComponent(data[value])}`)
+        .join('&');
+};
+
+
+
 //let base_url = 'https://api.binance.com';
 let base_url = 'https://accounts.sdtaop.com';
 let api_keys = {
@@ -193,6 +203,21 @@ async function getBindStatus(user_email){
 
 
 
+        // not found
+
+            /*
+            data: {
+    respCode: 'NOT_FIND_BIND_USER',
+    respMsg: 'could not find bound user',
+    status: null,
+    userId: null,
+    merchantUserAccount: null,
+    merchantCode: null,
+    bindingTime: null
+  }
+             */
+
+
 
 
         })
@@ -206,7 +231,57 @@ async function getBindStatus(user_email){
 
 
 
+async function getTradeQuote(user_email){
 
+    let endpoint = '/gateway-api/v1/public/ocbs/trade/getQuote';
+    let url = base_url + endpoint;
+
+    let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
+
+    let request_body = {
+        cryptoCurrency : 'BTC',
+        baseCurrency : 'NGN',
+        requestedCurrency : 'NGN',
+        requestedAmount : 2,
+        payType : 0,
+        binanceUserId : '350867884',
+        merchantUserAccount : user_email
+    };
+
+
+
+    let payload = encodeDataToURL(request_body)+'&';
+    let signature_text = payload + api_signature_default_string;
+
+    let requestSignature = SHA256(signature_text);
+
+
+    let request_headers = {
+        'Content-Type': 'application/json',
+        'merchantCode': process.env.merchantCode,
+        'x-api-key': process.env.APIKEY,
+        'x-api-signature': requestSignature,
+        'timestamp': Date.now(),
+    };
+
+
+    axios.post(url, request_body, {
+            headers: request_headers
+        }
+    )
+        .then(function (response_data) {
+
+
+            console.log(response_data);
+
+
+        })
+        .catch(function (error) {
+            console.log("ERROR BURN", error);
+        });
+
+
+}
 
 
 
@@ -220,8 +295,8 @@ async function getBindStatus(user_email){
                // create member account on Binance:
                let user_email = 'testuserd@xend.finance';
                  //  createMemberAccount(user_email); // to register user
-                 getBindStatus(user_email);
-
+                // getBindStatus(user_email); // see if user is bind to us
+                 getTradeQuote(user_email);
 
 
                     res.send('Hello World!')
