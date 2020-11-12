@@ -279,7 +279,13 @@ async function getTradeQuote(user_email){
             console.log("quotationTime", response_data.data.quotationTime);
             console.log("quotationExpiredTime", response_data.data.quotationExpiredTime);
 
-            return response_data.data.quoteId;
+         //   return response_data.data.quoteId;
+
+
+
+            buyCrypto(user_email,response_data.data.quoteId);
+
+
             // success
 
             /*
@@ -422,7 +428,7 @@ console.log('buy  time', now_now);
 
 
 
-async function initBuy(user_email){
+/*async function initBuy(user_email){
     // let quote_iddd = await getTradeQuote(user_email);
 
     getTradeQuote(user_email).then(function (quote_iddd) {
@@ -432,9 +438,7 @@ async function initBuy(user_email){
 
     });
 
-
-
-}
+}*/
 
 
 
@@ -448,9 +452,9 @@ app.get('/', (req, res) => {
                let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
-                 // getTradeQuote(user_email);
+                  getTradeQuote(user_email);
 
-                  initBuy(user_email);
+                 // initBuy(user_email);
 
 
 /*
