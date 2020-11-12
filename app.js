@@ -242,7 +242,7 @@ async function getTradeQuote(user_email){
         cryptoCurrency : 'BTC',
         baseCurrency : 'NGN',
         requestedCurrency : 'NGN',
-        requestedAmount : 2,
+        requestedAmount : parseFloat('2'),
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
@@ -291,6 +291,22 @@ async function getTradeQuote(user_email){
     quotationExpiredTime: null
   }
              */
+
+
+            // an error
+
+            /*
+            data: {
+    respCode: 'SYSTEM_ERROR',
+    respMsg: 'Failed to getQuote：Division by zero',
+    quoteId: null,
+    quotePrice: null,
+    totalAmount: null,
+    quotationTime: null,
+    quotationExpiredTime: null
+  }
+             */
+
 
 
 
