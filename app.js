@@ -145,7 +145,7 @@ let signature_text = payload + api_signature_default_string;
 }
 
 
-
+// show all running node app: ps aux | grep node
 async function getBindStatus(user_email){
 
     let endpoint = '/gateway-api/v1/public/ocbs/user/bindingStatus';
@@ -178,6 +178,23 @@ async function getBindStatus(user_email){
 
 
             console.log(response_data);
+
+            // binded user
+        /*    data: {
+                respCode: 'SUCCESS',
+                    respMsg: '',
+                    status: 'WAIT_AUTH',
+                    userId: '350867884',
+                    merchantUserAccount: 'testuser@xend.finance',
+                    merchantCode: 'Xend',
+                    bindingTime: 1605192648000
+            } */
+
+
+
+
+
+
         })
         .catch(function (error) {
             console.log("ERROR BURN", error);
@@ -201,7 +218,7 @@ async function getBindStatus(user_email){
             //   getAccountOpenOrders();
 
                // create member account on Binance:
-               let user_email = 'testuser@xend.finance';
+               let user_email = 'testuserd@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                  getBindStatus(user_email);
 
