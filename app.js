@@ -243,7 +243,7 @@ async function getTradeQuote(user_email){
         //  baseCurrency : 'NGN',
         baseCurrency : 'RUB',
         requestedCurrency : 'RUB',
-        requestedAmount : parseFloat('2.002'),
+        requestedAmount : parseFloat('500'),
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
@@ -272,8 +272,8 @@ async function getTradeQuote(user_email){
     )
         .then(function (response_data) {
 
-            console.log(response_data);
-
+            console.log(response_data.data.quoteId);
+            return response_data.data.quoteId;
             // success
 
             /*
@@ -332,7 +332,7 @@ async function getTradeQuote(user_email){
 
 
 
-async function buyCrypto(user_email){
+async function buyCrypto(user_email,quoteId){
 
     let endpoint = '/gateway-api/v1/public/ocbs/trade/execute';
     let url = base_url + endpoint;
@@ -342,7 +342,7 @@ async function buyCrypto(user_email){
     let request_body = {
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
-        quoteId : '70eb8bec5b9649a6ad34d8404339a65b',
+        quoteId : quoteId,
         orderId : '73da1138babb4',
         note : 'just talking',
     };
@@ -416,7 +416,10 @@ async function buyCrypto(user_email){
 
 
 
+async function cleanQuote(user_email){
+     return await getTradeQuote(user_email);
 
+}
 
 
 
@@ -431,7 +434,9 @@ app.get('/', (req, res) => {
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
                  // getTradeQuote(user_email);
-                buyCrypto(user_email);
+
+               let quote_id =  cleanQuote(user_email);
+                buyCrypto(user_email,quote_id);
 
 
 
