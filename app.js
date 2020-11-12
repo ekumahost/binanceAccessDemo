@@ -11,7 +11,8 @@ const SHA256 = require("crypto-js/sha256");
 const port = 30044;
 app.use(cors());
 
-const now_now  = Date.now()+60;
+//const now_now  = Date.now()+60;
+const now_now  = Date.now();
 
    encodeDataToURL = (data) => {
     return Object
@@ -348,10 +349,9 @@ console.log('buy  time', now_now);
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
         quoteId : quoteId,
-        orderId : '73da1138babb4',
+        orderId : quoteId+now_now,
         note : 'just talking',
     };
-
 
 
     let payload = encodeDataToURL(request_body)+'&';
