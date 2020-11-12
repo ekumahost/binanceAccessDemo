@@ -349,7 +349,7 @@ console.log('buy  time', now_now);
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
         quoteId : quoteId,
-        orderId : quoteId+now_now,
+        orderId : 'order_'+now_now,
         note : 'just talking',
     };
 
@@ -423,7 +423,9 @@ console.log('buy  time', now_now);
 
 
 async function cleanQuote(user_email){
-     return await getTradeQuote(user_email);
+     let quote_id = await getTradeQuote(user_email);
+
+             buyCrypto(user_email,quote_id);
 
 }
 
@@ -442,7 +444,7 @@ app.get('/', (req, res) => {
                  // getTradeQuote(user_email);
 
               let quote_id =  cleanQuote(user_email);
-               buyCrypto(user_email,quote_id);
+
 
 /*
     var t = new Date(Date.now() + 10000);
