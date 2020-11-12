@@ -342,7 +342,7 @@ async function buyCrypto(user_email){
     let request_body = {
         binanceUserId : '350867884',
         merchantUserAccount : user_email,
-        quoteId : '73da1138babb49c987165fffd02731dc',
+        quoteId : '70eb8bec5b9649a6ad34d8404339a65b',
         orderId : '73da1138babb4',
         note : 'just talking',
     };
@@ -430,8 +430,8 @@ app.get('/', (req, res) => {
                let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
-                  getTradeQuote(user_email);
-               //  buyCrypto(user_email);
+                 // getTradeQuote(user_email);
+                buyCrypto(user_email);
 
 
 
