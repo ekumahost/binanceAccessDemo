@@ -96,7 +96,7 @@ let signature_text = payload + api_signature_default_string;
         .then(function (response_data) {
 
             // user registered!!
-            // response_data.data =  { respCode: 'SUCCESS', respMsg: '', userId: 350867884 }
+            // response_data.response.data =  { respCode: 'SUCCESS', respMsg: '', userId: 350867884 }
 
 
             // user already exist error
@@ -110,9 +110,6 @@ let signature_text = payload + api_signature_default_string;
 
            // bind user: not valid redirect url yet..
            // https://accounts.sdtaop.com?merchantCode=Xend&merchantUserAccount=testuser@xend.finance&redirect=https://xend.finance
-
-
-
 
 
             console.log(response_data);
@@ -151,7 +148,7 @@ let signature_text = payload + api_signature_default_string;
 
 async function getBindStatus(user_email){
 
-    let endpoint = '/gateway-api/v1/public/ocbs/user/register';
+    let endpoint = '/gateway-api/v1/public/ocbs/user/bindingStatus';
     let url = base_url + endpoint;
 
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
