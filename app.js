@@ -245,7 +245,7 @@ let amount = new bigdecimal.BigDecimal('2');
         cryptoCurrency : 'BTC',
         baseCurrency : 'NGN',
         requestedCurrency : 'NGN',
-        requestedAmount : '2.002',
+        requestedAmount : parseFloat('2.002'),
         payType : 0,
         binanceUserId : '350867884',
         merchantUserAccount : user_email
@@ -340,6 +340,8 @@ let amount = new bigdecimal.BigDecimal('2');
 
          //  let amount = new bigdecimal.BigDecimal('2.788');
           // console.log(amount.toString());
+       console.log(parseFloat('2'));
+
 
                     res.send('Hello World!')
 });
