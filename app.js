@@ -334,7 +334,7 @@ async function getTradeQuote(user_email){
 
 async function buyCrypto(user_email){
 
-    let endpoint = '/gateway-api/v1/public/ocbs/trade/getQuote';
+    let endpoint = '/gateway-api/v1/public/ocbs/trade/execute';
     let url = base_url + endpoint;
 
     let api_signature_default_string = 'merchantCode='+process.env.merchantCode + '&timestamp='+Date.now()+'&x-api-key='+process.env.APIKEY+'&secret='+process.env.APISECRET;
@@ -371,6 +371,20 @@ async function buyCrypto(user_email){
 
 
             console.log(response_data);
+
+
+            // failes
+
+            /*
+             data: {
+      code: '000002',
+      message: 'illegal parameter',
+      messageDetail: null,
+      data: null,
+      success: false
+    }
+             */
+
 
 
         })
