@@ -34,8 +34,6 @@ let api_keys = {
 // data: { respCode: 'SUCCESS', respMsg: '', userId: 350867884 }
 
 
-
-
  async function getAccountOpenOrders(){
 
      //let endpoint = '/api/v3/account';
@@ -282,8 +280,7 @@ async function getTradeQuote(user_email){
          //   return response_data.data.quoteId;
 
 
-
-            buyCrypto(user_email,response_data.data.quoteId);
+         //   buyCrypto(user_email,response_data.data.quoteId);
 
 
             // success
@@ -360,6 +357,33 @@ console.log('buy  time', now_now);
     };
 
 
+/*
+    let request_body = {
+        binanceUserId : '350867884',
+        merchantUserAccount : 'testuser@xend.finance',
+        quoteId : '6e4ce15ff90146ea956072ceff9aa7f2',
+        orderId : 'order_0000011'
+    };
+*/
+
+
+
+
+  /*  data: {
+        respCode: 'SUCCESS',
+            respMsg: null,
+            quoteId: '2af9d46ef9ae4eeca72ab03859757bc0',
+            orderId: 'order_1605935515444',
+            paymentId: 'ebb67886487b4b7f8e5222eb83d74fd4',
+            status: 'PROCESSING',
+            note: null
+*/
+
+
+
+
+
+
     let payload = encodeDataToURL(request_body)+'&';
     let signature_text = payload + api_signature_default_string;
 
@@ -425,9 +449,6 @@ console.log('buy  time', now_now);
 
 
 
-
-
-
 /*async function initBuy(user_email){
     // let quote_iddd = await getTradeQuote(user_email);
 
@@ -454,6 +475,7 @@ app.get('/', (req, res) => {
                 // getBindStatus(user_email); // see if user is bind to us
                   getTradeQuote(user_email);
 
+               //  buyCrypto(user_email,'');
                  // initBuy(user_email);
 
 
