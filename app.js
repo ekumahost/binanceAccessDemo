@@ -473,9 +473,9 @@ app.get('/', (req, res) => {
                let user_email = 'testuser@xend.finance';
                  //  createMemberAccount(user_email); // to register user
                 // getBindStatus(user_email); // see if user is bind to us
-                  getTradeQuote(user_email);
+                //  getTradeQuote(user_email);
 
-               //  buyCrypto(user_email,'');
+                 buyCrypto(user_email,'7b396015f04f408c96a42c59a6d0e217');
                  // initBuy(user_email);
 
 
